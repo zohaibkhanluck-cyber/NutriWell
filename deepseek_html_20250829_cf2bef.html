@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NutriWell - Healthy Recipes & Nutrition Guides</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary: #4CAF50;
+            --secondary: #2196F3;
+            --accent: #FF9800;
+            --light: #f9f9f9;
+            --dark: #333;
+            --gray: #f0f0f0;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 25px;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        nav ul li a:hover {
+            color: var(--accent);
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: url('https://images.unsplash.com/photo-1490818387583-1baba5e638af?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80') no-repeat center center/cover;
+            height: 450px;
+            display: flex;
+            align-items: center;
+            color: white;
+            text-align: center;
+            position: relative;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero-content {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover {
+            background: #e68900;
+            transform: translateY(-3px);
+        }
+        
+        /* Categories Section */
+        .section-title {
+            text-align: center;
+            margin: 40px 0 30px;
+            color: var(--dark);
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--primary);
+            margin: 10px auto;
+        }
+        
+        .categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+        
+        .category-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .category-img {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .category-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .category-card:hover .category-img img {
+            transform: scale(1.1);
+        }
+        
+        .category-content {
+            padding: 20px;
+        }
+        
+        .category-content h3 {
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        /* Nutrition Tips */
+        .nutrition-tips {
+            background: var(--gray);
+            padding: 50px 0;
+        }
+        
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+        
+        .tip-card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .tip-card h3 {
+            color: var(--secondary);
+            margin-bottom: 15px;
+        }
+        
+        /* Recipe Example */
+        .recipe-example {
+            background: white;
+            padding: 40px 0;
+        }
+        
+        .recipe {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--light);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .recipe h2 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .recipe-meta {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+        
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: #666;
+        }
+        
+        .ingredients, .instructions {
+            margin-bottom: 30px;
+        }
+        
+        .ingredients h3, .instructions h3 {
+            color: var(--secondary);
+            margin-bottom: 15px;
+            padding-bottom: 5px;
+            border-bottom: 2px solid var(--gray);
+        }
+        
+        .ingredients ul, .instructions ol {
+            margin-left: 20px;
+        }
+        
+        .ingredients li, .instructions li {
+            margin-bottom: 8px;
+        }
+        
+        /* Newsletter */
+        .newsletter {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            padding: 50px 0;
+            text-align: center;
+        }
+        
+        .newsletter h2 {
+            margin-bottom: 20px;
+        }
+        
+        .newsletter p {
+            max-width: 600px;
+            margin: 0 auto 25px;
+        }
+        
+        .newsletter-form {
+            display: flex;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .newsletter-form input {
+            flex: 1;
+            padding: 12px 15px;
+            border: none;
+            border-radius: 30px 0 0 30px;
+        }
+        
+        .newsletter-form button {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 0 25px;
+            border-radius: 0 30px 30px 0;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 40px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-column h3 {
+            margin-bottom: 20px;
+            color: var(--accent);
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column ul li a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-column ul li a:hover {
+            color: var(--accent);
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .social-icons a {
+            color: white;
+            background: #444;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icons a:hover {
+            background: var(--accent);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #444;
+            color: #ccc;
+            font-size: 14px;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+            }
+            
+            nav ul {
+                margin-top: 20px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 5px 10px;
+            }
+            
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            .hero p {
+                font-size: 18px;
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+            }
+            
+            .newsletter-form input {
+                border-radius: 30px;
+                margin-bottom: 10px;
+            }
+            
+            .newsletter-form button {
+                border-radius: 30px;
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <i class="fas fa-leaf"></i>
+                <span>NutriWell</span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Recipes</a></li>
+                    <li><a href="#">Nutrition Guides</a></li>
+                    <li><a href="#">Meal Plans</a></li>
+                    <li><a href="#">About</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Healthy Eating Made Simple</h1>
+            <p>Discover delicious recipes and expert nutrition advice to fuel your body and mind</p>
+            <a href="#" class="btn">Explore Recipes</a>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="container">
+        <h2 class="section-title">Recipe Categories</h2>
+        <div class="categories">
+            <div class="category-card">
+                <div class="category-img">
+                    <img src="https://images.unsplash.com/photo-1551782450-17144efb9c50?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Breakfast">
+                </div>
+                <div class="category-content">
+                    <h3>Breakfast Recipes</h3>
+                    <p>Start your day right with nutritious and delicious breakfast ideas.</p>
+                    <a href="#" class="btn">Explore</a>
+                </div>
+            </div>
+            
+            <div class="category-card">
+                <div class="category-img">
+                    <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Lunch & Dinner">
+                </div>
+                <div class="category-content">
+                    <h3>Lunch & Dinner Recipes</h3>
+                    <p>Healthy and satisfying meals for lunch and dinner time.</p>
+                    <a href="#" class="btn">Explore</a>
+                </div>
+            </div>
+            
+            <div class="category-card">
+                <div class="category-img">
+                    <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Snacks">
+                </div>
+                <div class="category-content">
+                    <h3>Snacks & Appetizers</h3>
+                    <p>Guilt-free snacks and appetizers to keep you energized.</p>
+                    <a href="#" class="btn">Explore</a>
+                </div>
+            </div>
+            
+            <div class="category-card">
+                <div class="category-img">
+                    <img src="https://images.unsplash.com/photo-1534351590666-13e3e96b5017?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Smoothies">
+                </div>
+                <div class="category-content">
+                    <h3>Smoothies & Drinks</h3>
+                    <p>Refreshing and nutrient-packed beverages for any time of day.</p>
+                    <a href="#" class="btn">Explore</a>
+                </div>
+            </div>
+            
+            <div class="category-card">
+                <div class="category-img">
+                    <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Vegetarian">
+                </div>
+                <div class="category-content">
+                    <h3>Vegetarian / Vegan Recipes</h3>
+                    <p>Plant-based recipes that are both nutritious and delicious.</p>
+                    <a href="#" class="btn">Explore</a>
+                </div>
+            </div>
+            
+            <div class="category-card">
+                <div class="category-img">
+                    <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Low-Calorie">
+                </div>
+                <div class="category-content">
+                    <h3>Low-Calorie / Weight Loss Recipes</h3>
+                    <p>Delicious meals that support your weight management goals.</p>
+                    <a href="#" class="btn">Explore</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Nutrition Tips Section -->
+    <section class="nutrition-tips">
+        <div class="container">
+            <h2 class="section-title">Nutrition Tips & Guides</h2>
+            <div class="tips-grid">
+                <div class="tip-card">
+                    <h3>5 Ways to Boost Your Metabolism Naturally</h3>
+                    <p>Discover simple dietary changes that can help increase your metabolic rate and support weight management.</p>
+                    <a href="#">Read More</a>
+                </div>
+                
+                <div class="tip-card">
+                    <h3>Top 10 Superfoods for Weight Loss</h3>
+                    <p>Learn about nutrient-dense foods that can help you feel full longer and support your weight loss journey.</p>
+                    <a href="#">Read More</a>
+                </div>
+                
+                <div class="tip-card">
+                    <h3>How to Meal Prep for a Healthy Week</h3>
+                    <p>Save time and eat healthier with our practical guide to weekly meal preparation.</p>
+                    <a href="#">Read More</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recipe Example Section -->
+    <section class="recipe-example">
+        <div class="container">
+            <h2 class="section-title">Featured Recipe</h2>
+            <div class="recipe">
+                <h2>Avocado Toast with Poached Eggs</h2>
+                <div class="recipe-meta">
+                    <div class="meta-item">
+                        <i class="fas fa-clock"></i>
+                        <span>Prep: 10 mins</span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="fas fa-fire"></i>
+                        <span>Cook: 5 mins</span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="fas fa-user"></i>
+                        <span>Servings: 2</span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="fas fa-chart-pie"></i>
+                        <span>Calories: 320</span>
+                    </div>
+                </div>
+                
+                <div class="ingredients">
+                    <h3>Ingredients</h3>
+                    <ul>
+                        <li>2 slices whole grain bread</li>
+                        <li>1 ripe avocado</li>
+                        <li>2 eggs</li>
+                        <li>1 tbsp lemon juice</li>
+                        <li>Salt and pepper to taste</li>
+                        <li>Red pepper flakes (optional)</li>
+                        <li>Fresh cilantro for garnish</li>
+                    </ul>
+                </div>
+                
+                <div class="instructions">
+                    <h3>Instructions</h3>
+                    <ol>
+                        <li>Toast the whole grain bread until golden and crisp.</li>
+                        <li>Cut the avocado in half, remove the pit, and scoop the flesh into a bowl.</li>
+                        <li>Add lemon juice, salt, and pepper to the avocado and mash with a fork.</li>
+                        <li>Bring a pot of water to a gentle simmer. Crack eggs into small cups and carefully slide into the water.</li>
+                        <li>Poach eggs for 3-4 minutes until whites are set but yolks are still runny.</li>
+                        <li>Spread the avocado mixture on toast, top with poached eggs, and season with salt, pepper, and red pepper flakes.</li>
+                        <li>Garnish with fresh cilantro and serve immediately.</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter">
+        <div class="container">
+            <h2>Subscribe to Our Newsletter</h2>
+            <p>Get weekly healthy recipes, nutrition tips, and special offers delivered right to your inbox.</p>
+            <form class="newsletter-form">
+                <input type="email" placeholder="Enter your email address">
+                <button type="submit">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>NutriWell</h3>
+                    <p>Your trusted source for healthy recipes and nutrition advice to support your wellness journey.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-pinterest"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Recipes</a></li>
+                        <li><a href="#">Meal Plans</a></li>
+                        <li><a href="#">Nutrition Guides</a></li>
+                        <li><a href="#">About Us</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Recipe Categories</h3>
+                    <ul>
+                        <li><a href="#">Breakfast</a></li>
+                        <li><a href="#">Lunch & Dinner</a></li>
+                        <li><a href="#">Snacks & Appetizers</a></li>
+                        <li><a href="#">Smoothies & Drinks</a></li>
+                        <li><a href="#">Vegetarian / Vegan</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> info@nutriwell.com</li>
+                        <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Health St, Wellness City</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 NutriWell. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple JavaScript for interactive elements
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add animation to category cards on scroll
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            // Observe category cards
+            document.querySelectorAll('.category-card').forEach(card => {
+                card.style.opacity = 0;
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                observer.observe(card);
+            });
+            
+            // Newsletter form validation
+            const newsletterForm = document.querySelector('.newsletter-form');
+            if (newsletterForm) {
+                newsletterForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const email = this.querySelector('input[type="email"]').value;
+                    if (email && isValidEmail(email)) {
+                        alert('Thank you for subscribing to our newsletter!');
+                        this.reset();
+                    } else {
+                        alert('Please enter a valid email address.');
+                    }
+                });
+            }
+            
+            function isValidEmail(email) {
+                const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return re.test(email);
+            }
+        });
+    </script>
+</body>
+</html>
